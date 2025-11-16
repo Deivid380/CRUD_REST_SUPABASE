@@ -60,4 +60,6 @@ jobs:
           app-name: 'crud'
           slot-name: 'Production'
           package: '*.jar'
-          
+env:
+  DB_USERNAME: ${{ secrets.DB_USERNAME }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
