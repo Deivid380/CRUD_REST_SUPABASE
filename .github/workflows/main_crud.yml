@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
 
     steps:
       - uses: actions/checkout@v4
@@ -32,17 +35,9 @@ jobs:
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
-          app-settings-json: |
-            [
-              {
-                "name": "DB_USER_SUPABASE",
-                "value": "${{ secrets.DB_USER_SUPABASE }}"
-              },
-              {
-                "name": "DB_PWD_SUPABASE",
-                "value": "${{ secrets.DB_PWD_SUPABASE }}"
-              }
-            ]
+          app-settings: |
+            DB_USER_SUPABASE=${{ secrets.DB_USER_SUPABASE }}
+            DB_PWD_SUPABASE=${{ secrets.DB_PWD_SUPABASE }}
 
   deploy:
     runs-on: ubuntu-latest
