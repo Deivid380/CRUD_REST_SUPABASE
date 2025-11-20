@@ -32,9 +32,17 @@ jobs:
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
-          app-settings: |
-            DB_USER_SUPABASE=${{ secrets.DB_USER_SUPABASE }}
-            DB_PWD_SUPABASE=${{ secrets.DB_PWD_SUPABASE }}
+          app-settings-json: |
+            [
+              {
+                "name": "DB_USER_SUPABASE",
+                "value": "${{ secrets.DB_USER_SUPABASE }}"
+              },
+              {
+                "name": "DB_PWD_SUPABASE",
+                "value": "${{ secrets.DB_PWD_SUPABASE }}"
+              }
+            ]
 
   deploy:
     runs-on: ubuntu-latest
@@ -65,3 +73,4 @@ jobs:
           package: '*.jar'
 
           
+
